@@ -1,0 +1,111 @@
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #ECE4DC;
+
+}
+
+.logoTop {
+  position: relative;
+  left: 35%;
+  margin: auto;
+  margin-bottom:2%;
+  margin-top: 3%;
+}
+
+.logoTop:hover {
+  transform: scale(1.07);
+  transition: 0.3s;
+}
+
+h1 {
+  color: #7ea026;
+}
+
+.mapframe  {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    border-radius: 15px;
+    margin-left: auto;  
+}
+
+.findButton {
+  position: relative;
+  left: 15%;
+  margin: auto;
+  margin-bottom: 2%;
+  width: 10%;
+  font-size: 110%;
+  font-weight: bold;
+  height: 20%;
+  background-color: #7ea026;
+  outline-color: #7ea026;
+  border: 0;
+  color: #ECE4DC;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px #a3a3a3;
+  font-family: 'Poppins', sans-serif;
+}
+
+.findButton:hover {
+  background-color: #92b53b;
+  color: #ECE4DC;
+  outline-color: #7ea026;
+  border: 0;
+  outline-width: 5px;
+  transform: scale(1.07);
+  transition: 0.3s;
+  box-shadow: 3px 3px 4px #a3a3a3;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row {
+  width: 90%; 
+  margin: auto;
+}
+
+.tabs {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: space-between;
+  width: 80%; 
+  margin: auto;
+  height: 115px;
+  background-color:#7ea026;
+  border-radius: 15px;
+  margin-bottom:20px;
+  text-align: right;
+  padding-right: 15px;
+  padding-top: 3px;
+  color: white;
+  margin-right: auto;  
+  transition: 0.8s;
+  box-shadow: 2.5px 2.5px 4px #a3a3a3;
+  line-height: 0.7;
+}
+
+.tabs:hover {
+  transform: scale(1.07);
+}
+
+.stationImage {
+  padding-left: 10%;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  flex: 1;
+}
+
+.test1 {
+    padding-right: 10%;
+}
+
+#mapNew { height: 180px; }

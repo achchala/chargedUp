@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="/static/style.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8">
+  <title>chargedUp</title>
+  <link rel="icon" type="image/x-icon" href="/static/cuplogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/6f662430f5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <img class="logoTop" src="/static/chargedupver2.png" width=30%></td> 
+
+      <button onclick="getLocation()" class="findButton">find <i class="fa-solid fa-location-dot" color: ></i></button>
+
+  
+  <center>
+
+    
+    <p id="demo"></p>
+
+    <div class="row">
+      <div class="column">
+        <div id="mapframeContainer">
+          <!-- Google Map Copied Code -->
+          <iframe src="https://maps.google.com/maps?q=0,0&hl=en&z=14&amp;output=embed" id="mapframe" width="75%"
+            height=400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+          </iframe>
+        </div>
+      </div>
+      <script>
+        const jsonName = "dsdkaljdlka"
+      </script>
+
+      <div class="column">
+
+        <!-- coding the three gas stations out -->
+            
+
+         <div class="gasone tabs" id = "gasone" >  
+          <div class = "stationImage">
+            <img class="image1" id = "image1" src="/static/whitelogo.png" width=30%></td>    
+          </div>  
+           <div class = "test1">
+            <p id = "name1"> Station Name</p>
+            <p id = "address1"> Address</p>
+            <p id = "city1"> City, State</p>
+            </div>
+          </div>
+
+        <div class="gastwo tabs" id = "gastwo">
+          <div class = "stationImage">   
+            <img class="image2" id = "image2" src="/static/whitelogo.png" width=30%></td>    
+          </div> 
+        <div class = "test1">
+          <p id = "name2"> Station Name</p>
+          <p id = "address2"> Address</p>
+          <p id = "city2"> City, State</p>
+        </div>
+        </div>
+
+        <div class="gasthree tabs" id = "gasthree" >
+          <div class = "stationImage"> 
+            <img class="image3" id = "image3" src="/static/whitelogo.png" width=30%></td>    
+          </div> 
+        <div class = "test1">
+          <p id = "name3"> Station Name</p>
+          <p id = "address3"> Address</p>
+          <p id = "city3"> City, State</p>
+        </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="mapNew"></div>
+
+  </center>
+
+  <script>
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        //getCurrentPosition() method is used to return the user's position
+        //If the getCurrentPosition() method is successful, it returns a coordinates object to the function specified in the parameter (showPosition)
+        let res = navigator.geolocation.getCurrentPosition(showPosition);
+        let res2 = navigator.geolocation.getCurrentPosition(getPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      let frame = `
+      <iframe src="https://maps.google.com/maps?q=${latitude},${longitude}&hl=en&z=14&amp;output=embed" id="mapframe" width="75%"
+            height=400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+          </iframe>
+        `
+      var z = document.createElement('div');
+      z.innerHTML = frame
+      document.getElementById('mapframeContainer').replaceChild(z, document.getElementById('mapframe'));
+    }
+    
+    function getPosition(position) {
+      const latLong = [position.coords.latitude, position.coords.longitude];
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', '/listStations', true);
+      xhr.setRequestHeader("Accept", "application/json");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function() {
+        try {
+          let podium = JSON.parse(xhr.responseText).podium;
+        } catch {
+          alert("Sorry! Electric charging stations were not found in your area!")
+          return;
+        }
+        let podium = JSON.parse(xhr.responseText).podium;
+        let all = JSON.parse(xhr.responseText).all;
+        
+        //first station
+        document.getElementById('name1').innerHTML = podium[0].name;
+        document.getElementById('address1').innerHTML = podium[0].address;
+        document.getElementById('city1').innerHTML = podium[0].city + ", " + podium[0].state;
+
+
+        if (podium[0].ev_network === "SemaCharge Network") {
+         document.getElementById("image1").src = "/static/tesla.png";
+        } 
+        
+        if (podium[1].ev_network === "SemaCharge Network") {
+         document.getElementById("image2").src = "/static/tesla.png";
+        } 
+
+        if (podium[2].ev_network === "SemaCharge Network") {
+         document.getElementById("image3").src = "/static/tesla.png";
+        } 
+
+        //second station
+        document.getElementById('name2').innerHTML = podium[1].name;
+        document.getElementById('address2').innerHTML = podium[1].address;
+        document.getElementById('city2').innerHTML = podium[1].city + ", " + podium[1].state;
+
+        //third station
+        document.getElementById('name3').innerHTML = podium[2].name;
+        document.getElementById('address3').innerHTML = podium[2].address;
+        document.getElementById('city3').innerHTML = podium[2].city + ", " + podium[2].state;
+
+      }
+      xhr.send(latLong); 
+    }
+    
+  </script>
+
+</body>
+
+</html>
